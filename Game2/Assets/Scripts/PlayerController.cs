@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
-    public float speed = 10f;
+    public float speed = 200f;
     public float run = 1.5f;
     public float jumpForce = 7000f;
 
@@ -18,10 +18,11 @@ public class PlayerController : MonoBehaviour {
     {
         float move = Input.GetAxis("Horizontal");
         //rb.MovePosition (rb.position + Vector2.right * move * speed * Time.deltaTime); //СТАРАЯ ВЕРСИЯ БЕГА
-        rb.velocity = new Vector2(move * speed, rb.velocity.y);
+        rb.velocity = new Vector2(move * speed * Time.deltaTime, rb.velocity.y);
         if (Input.GetKey(KeyCode.LeftShift)) //rb.MovePosition(rb.position + Vector2.right * move * run * speed * Time.deltaTime); //СТАРАЯ ВЕРСИЯ БЕГА
-            rb.velocity = new Vector2(run * move * speed, rb.velocity.y);
-        if (Input.GetKeyDown(KeyCode.Space)) //rb.AddForce(Vector2.up * jumpForce);   //ДЕРГАННЫЙ ПРЫЖОК
+            rb.velocity = new Vector2(run * move * speed * Time.deltaTime, rb.velocity.y);
+
+       if (Input.GetKeyDown(KeyCode.Space)) //rb.AddForce(Vector2.up * jumpForce);   //ДЕРГАННЫЙ ПРЫЖОК
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);   //ПЛАВНЫЙ ПРЫЖОК
 
         if (move > 0 && !faceRight) flip();
@@ -36,7 +37,6 @@ public class PlayerController : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Enemy") SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (col.gameObject.tag == "Enemy") SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  
     }
-
 }
