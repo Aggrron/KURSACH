@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour
-{
+public class Enemy : MonoBehaviour {
     public float speed = 7f;
-    float direction = -1f;
 
     private bool faceRight = true;
     private Rigidbody2D rb;
+    private float direction = -1f;
 
     void Start()
     {
@@ -16,13 +15,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        rb.velocity = new Vector2(speed * direction, rb.velocity.y);    
-    }
-
-    void flip()
-    {
-        faceRight = !faceRight;
-        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+        rb.velocity = new Vector2(speed * direction * Time.deltaTime, rb.velocity.y);    
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -34,4 +27,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    void flip()
+    {
+        faceRight = !faceRight;
+        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+    }
 }

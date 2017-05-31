@@ -3,7 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
     public float speed = 10f;
-    public float jumpForce = 700f;
+    public float run = 1.5f;
+    public float jumpForce = 7000f;
 
     private Rigidbody2D rb;
     private bool faceRight = true;
@@ -13,17 +14,19 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent <Rigidbody2D> ();
 	}
     
-
     void Update ()
     {
-        float move = Input.GetAxis ("Horizontal");
-        rb.MovePosition (rb.position + Vector2.right * move * speed * Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.Space)) rb.AddForce(Vector2.up * jumpForce);
+        float move = Input.GetAxis("Horizontal");
+        //rb.MovePosition (rb.position + Vector2.right * move * speed * Time.deltaTime); //СТАРАЯ ВЕРСИЯ БЕГА
+        rb.velocity = new Vector2(move * speed, rb.velocity.y);
+        if (Input.GetKey(KeyCode.LeftShift)) //rb.MovePosition(rb.position + Vector2.right * move * run * speed * Time.deltaTime); //СТАРАЯ ВЕРСИЯ БЕГА
+            rb.velocity = new Vector2(run * move * speed, rb.velocity.y);
+        if (Input.GetKeyDown(KeyCode.Space)) //rb.AddForce(Vector2.up * jumpForce);   //ДЕРГАННЫЙ ПРЫЖОК
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);   //ПЛАВНЫЙ ПРЫЖОК
 
         if (move > 0 && !faceRight) flip();
         else if (move < 0 && faceRight) flip();
-	}
+    }
 
     void flip()
     {
