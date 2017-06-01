@@ -9,9 +9,8 @@ public class ChaseDeer : MonoBehaviour {
     void Update ()
     {
 		transform.position = Vector2.MoveTowards (transform.position, EndPoint.position, Time.deltaTime);
-        float direction = transform.position.x - EndPoint.transform.position.x;
-        if (direction < 0 && !faceRight) flip();
-        else if (direction > 0 && faceRight) flip();
+        if (transform.position.x < EndPoint.transform.position.x && !faceRight) flip();
+        else if (transform.position.x > EndPoint.transform.position.x && faceRight) flip();
 
     }
 
