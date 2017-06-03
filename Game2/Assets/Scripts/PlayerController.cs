@@ -8,17 +8,19 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody2D rb;
     private bool faceRight = true;
+	private Animator anim;
 
 	void Start ()
     {
+		anim = GetComponent<Animator> ();
         rb = GetComponent <Rigidbody2D> ();
 	}
     
-    void Update ()
+    void FixedUpdate ()
     {
         float move = Input.GetAxis("Horizontal");
         //rb.MovePosition (rb.position + Vector2.right * move * speed * Time.deltaTime); //СТАРАЯ ВЕРСИЯ БЕГА
-        rb.velocity = new Vector2(move * speed * Time.deltaTime, rb.velocity.y);
+		rb.velocity = new Vector2(move * speed *Time.deltaTime, rb.velocity.y);
         if (Input.GetKey(KeyCode.LeftShift)) //rb.MovePosition(rb.position + Vector2.right * move * run * speed * Time.deltaTime); //СТАРАЯ ВЕРСИЯ БЕГА
             rb.velocity = new Vector2(run * move * speed * Time.deltaTime, rb.velocity.y);
 
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour {
 
         if (move > 0 && !faceRight) flip();
         else if (move < 0 && faceRight) flip();
+		anim.SetFloat("Speed", Mathf.Abs(move));
     }
 
     void flip()
@@ -39,4 +42,5 @@ public class PlayerController : MonoBehaviour {
     {
         if (col.gameObject.tag == "Enemy") SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  
     }
+
 }
