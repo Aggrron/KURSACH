@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Enemy : MonoBehaviour {
-    public float speed = 7f;
+    public float speed = 10f;
 
     private bool faceRight = true;
     private Rigidbody2D rb;
@@ -13,14 +13,14 @@ public class Enemy : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        rb.velocity = new Vector2(speed * direction * Time.deltaTime, rb.velocity.y);    
+        rb.velocity = new Vector2 (speed * direction * Time.deltaTime, rb.velocity.y);    
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    void OnCollisionEnter2D(Collision2D obj)
     {
-        if (col.gameObject.tag == "Wall")
+        if (obj.gameObject.tag == "Wall")
         {
             direction *= -1f;
             flip();

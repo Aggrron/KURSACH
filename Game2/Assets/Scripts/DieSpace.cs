@@ -3,9 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class DieSpace : MonoBehaviour {
 
-    void OnTriggerEnter2D (Collider2D other)
+    void OnTriggerEnter2D (Collider2D obj)
     {
-        if (other.tag == "Player") 
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (obj.tag == "Player") SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

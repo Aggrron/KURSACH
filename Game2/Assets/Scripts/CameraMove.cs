@@ -5,7 +5,6 @@ public class CameraMove : MonoBehaviour {
 
 	void Update ()
     {
-        transform.position = new Vector3(target.transform.position.x, target.transform.position.y, -10f);
+        transform.position = new Vector3 (target.transform.position.x, target.transform.position.y, -10f);
     }
-
 }

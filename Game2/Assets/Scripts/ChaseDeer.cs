@@ -11,12 +11,11 @@ public class ChaseDeer : MonoBehaviour {
 		transform.position = Vector2.MoveTowards (transform.position, EndPoint.position, Time.deltaTime);
         if (transform.position.x < EndPoint.transform.position.x && !faceRight) flip();
         else if (transform.position.x > EndPoint.transform.position.x && faceRight) flip();
-
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D (Collider2D obj)
     {
-        if (other.tag == "Player") SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (obj.tag == "Player") SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void flip()
