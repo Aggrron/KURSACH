@@ -3,12 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class ChaseDeer : MonoBehaviour {
     public Transform EndPoint;
-  
+	public int DeerSpeed;
     private bool faceRight = true;
 
     void Update ()
     {
-		transform.position = Vector2.MoveTowards (transform.position, EndPoint.position, Time.deltaTime);
+		transform.position = Vector2.MoveTowards (transform.position, EndPoint.position, Time.deltaTime*DeerSpeed);
         if (transform.position.x < EndPoint.transform.position.x && !faceRight) flip();
         else if (transform.position.x > EndPoint.transform.position.x && faceRight) flip();
     }
