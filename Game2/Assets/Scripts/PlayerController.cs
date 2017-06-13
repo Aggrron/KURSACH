@@ -2,19 +2,20 @@
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
-    public float speed = 200f;
+    public float speed = 700f;
     public float run = 1.5f;
     public float jumpForce = 7000f;
-    public float jumpMax = 100f;
+    public float jumpMax = 15f;
+    public float jumpValue = 0f;
 
     private Rigidbody2D rb;
     private bool faceRight = true;
 	private Animator anim;
 
-    public Transform groundCheck;
+  /*  public Transform groundCheck;
     public float groundRadius = 0.2f;
     public bool onGround;
-    public LayerMask whatIsGround;
+    public LayerMask whatIsGround;*/
 
     void Start ()
     {
@@ -24,37 +25,16 @@ public class PlayerController : MonoBehaviour {
     
     void FixedUpdate ()
     {
-        onGround = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
+       // onGround = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
 
         float move = Input.GetAxis("Horizontal");
 		rb.velocity = new Vector2(move * speed *Time.deltaTime, rb.velocity.y);
         if (Input.GetKey(KeyCode.LeftShift)) rb.velocity = new Vector2(run * move * speed * Time.deltaTime, rb.velocity.y);
 
-        /*if (onGround && Input.GetKeyDown(KeyCode.Space)) //rb.AddForce(Vector2.up * jumpForce);   //ДЕРГАННЫЙ ПРЫЖОК
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);   //ПЛАВНЫЙ ПРЫЖОК*/
+        if (Input.GetKeyDown(KeyCode.Space)) //rb.AddForce(Vector2.up * jumpForce);   //ДЕРГАННЫЙ ПРЫЖОК
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);   //ПЛАВНЫЙ ПРЫЖОК
 
-        if (onGround)
-        {
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-                jumpForce = 1;
-            }
-        }
-        if (Input.GetKey(KeyCode.Z) && jumpForce > 0 && jumpForce < jumpMax)
-        {
-            if (onGround)
-            {
-                jumpForce = 0;
-            }
-            rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Force);
-            jumpForce++;
-        }
-        if (jumpForce > jumpMax - 1)
-        {
-            jumpForce = 0;
-        }
-
+      
         if (move > 0 && !faceRight) flip();
         else if (move < 0 && faceRight) flip();
 		anim.SetFloat("Speed", Mathf.Abs(move));
