@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraMove : MonoBehaviour {
     public GameObject target;
@@ -6,5 +7,6 @@ public class CameraMove : MonoBehaviour {
 	void Update ()
     {
         transform.position = new Vector3 (target.transform.position.x, target.transform.position.y, -10f);
+        if (Input.GetKeyDown(KeyCode.Escape)) SceneManager.LoadScene("main menu");
     }
 }
