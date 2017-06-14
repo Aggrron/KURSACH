@@ -3,8 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class ChaseDeer : MonoBehaviour {
     public Transform EndPoint;
-	public int DeerSpeed;
+	public float DeerSpeed;
     private bool faceRight = true;
+
 
     void Update ()
     {
